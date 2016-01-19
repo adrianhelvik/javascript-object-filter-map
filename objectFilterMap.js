@@ -12,16 +12,19 @@ if ( module && module.exports ) {
 /**
  * @param {function} opts.condition
  * @param {function} opts.func
- * @param {object} opts.object
+ * @param {object} opts.object Optional (considering that a undefined is a valid value)
  */
 function objectFilterMap(opts) {
 
-    // Param checking / defaults
-    // -------------------------
+    // Param checking
+    // --------------
 
-    if ( ! opts || ! opts.object || ! opts.func || ! opts.condition ) {
+    if ( ! opts || ! opts.func || ! opts.condition || opts.object === undefined ) {
         throw Error('Illegal arguments. parameter {object, condition, func} required');
     }
+
+    // Default params
+    // --------------
 
     if ( opts.recursive === undefined ) opts.recursive = true;
 
@@ -40,9 +43,13 @@ function objectFilterMap(opts) {
     for (var prop in opts.object) {
         if ( ! opts.object.hasOwnProperty(prop) ) continue;
 
-        var newObject = opts.condition(opts.object[prop]) ? opts.func(opts.object[prop]) : opts.object[prop];
+        var newObject;
 
-        if ( opts.recursive ) {
+        if ( opts.condition(opts.object[prop]) ) {
+            newObject = opts.func(opts.object[prop])
+        } else newObject = opts.object[prop];
+
+        if ( opts.recursive && newObject !== undefined ) {
             result[prop] = objectFilterMap({
                 object: newObject,
                 func: opts.func,

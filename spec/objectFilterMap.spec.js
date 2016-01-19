@@ -118,5 +118,22 @@ describe('objectFilterMap', () => {
                 condition: function () {}
             })
         }).not.toThrow();
+
+        expect( function () {
+            objectFilterMap({
+                func: function () {},
+                condition: function () {}
+            })
+        }).toThrow();
+
+        expect( function () {
+            objectFilterMap({
+                object: { a: undefined },
+                func: function () {},
+                condition: function () {}
+            })
+        }).not.toThrow();
+
     });
+
 })

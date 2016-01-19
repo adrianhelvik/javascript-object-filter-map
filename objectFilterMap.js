@@ -28,7 +28,7 @@ function objectFilterMap(opts) {
     // Type check object
     // -----------------
 
-    if ( Array.isArray(opts.object) || ! Object.getPrototypeOf( opts.object ) === Object.prototype || typeof opts.object !== 'object' ) {
+    if ( Array.isArray(opts.object) || Object.getPrototypeOf( opts.object ) !== Object.prototype || typeof opts.object !== 'object' ) {
         return opts.condition( opts.object ) ? opts.func( opts.object ) : opts.object;
     }
 

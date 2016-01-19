@@ -1,5 +1,5 @@
 {
-  "name": "object-map",
+  "name": "object-filter-map",
   "version": "1.0.0",
   "description": "",
   "main": "objectFilterMap.js",

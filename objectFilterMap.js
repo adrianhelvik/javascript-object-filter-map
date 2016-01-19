@@ -28,7 +28,7 @@ function objectFilterMap(opts) {
     // Type check object
     // -----------------
 
-    if ( Array.isArray(opts.object) || Object.getPrototypeOf( opts.object ) !== Object.prototype || typeof opts.object !== 'object' ) {
+    if ( notObjectLiteral(opts.object) ) {
         return opts.condition( opts.object ) ? opts.func( opts.object ) : opts.object;
     }
 
@@ -56,4 +56,10 @@ function objectFilterMap(opts) {
     }
 
     return result;
+}
+
+function notObjectLiteral( object ) {
+    return object === null
+        || object === undefined
+        || Object.getPrototypeOf( object ) !== Object.prototype;
 }

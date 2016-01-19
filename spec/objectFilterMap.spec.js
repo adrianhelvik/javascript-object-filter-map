@@ -1,6 +1,6 @@
-var objectMap = require('../objectMap');
+var objectFilterMap = require('../objectFilterMap');
 
-describe('objectMap', () => {
+describe('objectFilterMap', () => {
 
     // Happy path
     // ----------
@@ -20,7 +20,7 @@ describe('objectMap', () => {
             }
         };
 
-        expect(objectMap(options)).toEqual(object);
+        expect(objectFilterMap(options)).toEqual(object);
     });
 
     it('should replace a property if condition is met', () => {
@@ -29,7 +29,7 @@ describe('objectMap', () => {
             b: 10
         };
 
-        expect(objectMap({
+        expect(objectFilterMap({
             object: object,
             func: function (val) { return 1337 },
             condition: function (val) { return val === 10 }
@@ -41,7 +41,7 @@ describe('objectMap', () => {
     });
 
     it('should replace non-nested property if recursive == false', () => {
-        expect(objectMap({
+        expect(objectFilterMap({
             object: { a: 10 },
             func: function(val) { return 42; },
             condition: function(val) { return val === 10; },
@@ -52,7 +52,7 @@ describe('objectMap', () => {
     });
 
     it('should replace nested property if recursive is not set', () => {
-        expect(objectMap({
+        expect(objectFilterMap({
             object: { a: { b: 10 } },
             func: function(val) { return 42; },
             condition: function(val) { return val === 10; },
@@ -64,7 +64,7 @@ describe('objectMap', () => {
     });
 
     it('should not replace nested property if recursive == false', () => {
-        expect(objectMap({
+        expect(objectFilterMap({
             object: { a: { b: 10 } },
             func: function(val) { return 42 },
             condition: function(val) { return val === 10; },
@@ -76,27 +76,27 @@ describe('objectMap', () => {
     // --------
     it('should not work without required params', () => {
 
-        expect( objectMap ).toThrow();
+        expect( objectFilterMap ).toThrow();
 
         expect( function () {
-            objectMap({})
+            objectFilterMap({})
         }).toThrow();
 
         expect( function () {
-            objectMap({
+            objectFilterMap({
                 object: {}
             })
         }).toThrow();
 
         expect( function () {
-            objectMap({
+            objectFilterMap({
                 object: {},
                 func: function () {}
             })
         }).toThrow();
 
         expect( function () {
-            objectMap({
+            objectFilterMap({
                 object: {},
                 func: function () {},
                 recursive: false
@@ -104,7 +104,7 @@ describe('objectMap', () => {
         }).toThrow();
 
         expect( function () {
-            objectMap({
+            objectFilterMap({
                 object: {},
                 condition: function () {},
                 recursive: false
@@ -112,7 +112,7 @@ describe('objectMap', () => {
         }).toThrow();
 
         expect( function () {
-            objectMap({
+            objectFilterMap({
                 object: {},
                 func: function () {},
                 condition: function () {}

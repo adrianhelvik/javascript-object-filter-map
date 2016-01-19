@@ -1,10 +1,10 @@
 'use strict';
 
 if ( module && module.exports ) {
-    module.exports = objectMap;
+    module.exports = objectFilterMap;
 } else if ( angular ) {
-    angular.module( 'objectMap', [] )
-        .factory( 'objectMap', function () { return objectMap } );
+    angular.module( 'objectFilterMap', [] )
+        .factory( 'objectFilterMap', function () { return objectFilterMap } );
 } else {
     throw new Error( 'Neither angular or CommonJS modules available' );
 }
@@ -14,7 +14,7 @@ if ( module && module.exports ) {
  * @param {function} opts.func
  * @param {object} opts.object
  */
-function objectMap(opts) {
+function objectFilterMap(opts) {
 
     // Param checking / defaults
     // -------------------------
@@ -43,7 +43,7 @@ function objectMap(opts) {
         var newObject = opts.condition(opts.object[prop]) ? opts.func(opts.object[prop]) : opts.object[prop];
 
         if ( opts.recursive ) {
-            result[prop] = objectMap({
+            result[prop] = objectFilterMap({
                 object: newObject,
                 func: opts.func,
                 condition: opts.condition,

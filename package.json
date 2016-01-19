@@ -2,7 +2,7 @@
   "name": "object-map",
   "version": "1.0.0",
   "description": "",
-  "main": "objectMap.js",
+  "main": "objectFilterMap.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

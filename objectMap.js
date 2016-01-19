@@ -2,8 +2,11 @@
 
 if ( module && module.exports ) {
     module.exports = objectMap;
+} else if ( angular ) {
+    angular.module( 'objectMap', [] )
+        .factory( 'objectMap', function () { return objectMap } );
 } else {
-    window.OBJECT_MAP = objectMap;
+    throw new Error( 'Neither angular or CommonJS modules available' );
 }
 
 /**

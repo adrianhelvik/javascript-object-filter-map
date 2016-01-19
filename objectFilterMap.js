@@ -1,8 +1,8 @@
 'use strict';
 
-if ( module && module.exports ) {
+if ( typeof module !== 'undefined' && module.exports ) {
     module.exports = objectFilterMap;
-} else if ( angular ) {
+} else if ( typeof angular !== 'undefined' ) {
     angular.module( 'objectFilterMap', [] )
         .factory( 'objectFilterMap', function () { return objectFilterMap } );
 } else {
